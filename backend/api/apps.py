@@ -1,5 +1,6 @@
 import json
 import sqlite3
+from pathlib import Path  # <-- Added missing import
 
 from django.apps import AppConfig
 
@@ -15,9 +16,13 @@ class ApiConfig(AppConfig):
         if paper_cache:
             return
 
-        db_path = "/home/zombie/paper-flix/db/papers.db"
         try:
-            conn = sqlite3.connect(db_path)
+            # 1. Properly indented inside the try block
+            BASE_DIR = Path(__file__).resolve().parent.parent.parent
+            DB_PATH = BASE_DIR / "db" / "papers.db"
+
+            # 2. Match the exact casing of DB_PATH
+            conn = sqlite3.connect(DB_PATH)
 
             # Ensure tables exist (just like Go)
             conn.executescript(
@@ -31,7 +36,7 @@ class ApiConfig(AppConfig):
                     paper_id TEXT,
                     PRIMARY KEY (user_id, paper_id)
                 );
-            """
+                """
             )
 
             cursor = conn.cursor()
