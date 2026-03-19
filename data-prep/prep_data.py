@@ -10,7 +10,7 @@ from sentence_transformers import SentenceTransformer
 
 # 1. Connect to the absolute path we established earlier
 home_dir = Path.home()
-db_folder = home_dir / "paper-flix" / "db"
+db_folder = home_dir / "Paper-flix" / "db"
 db_path = db_folder / "papers.db"
 
 # Ensure the directory exists before trying to connect
