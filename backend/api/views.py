@@ -5,10 +5,12 @@ import uuid
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from pathlib import Path
 
 from .apps import paper_cache
 
-DB_PATH = "/home/zombie/paper-flix/db/papers.db"
+home_dir = Path.home()
+DB_PATH = home_dir / "Paper-flix" / "db" / "papers.db"
 
 
 # --- MATH HELPERS ---
