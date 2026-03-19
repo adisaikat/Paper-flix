@@ -3,12 +3,22 @@ import sqlite3
 import time  # Add this at the top with your other imports
 import urllib.request
 import xml.etree.ElementTree as ET
+from pathlib import Path
 from urllib.error import HTTPError  # Add this too
 
 from sentence_transformers import SentenceTransformer
 
 # 1. Connect to the absolute path we established earlier
-db_path = "/home/zombie/paper-flix/db/papers.db"
+home_dir = Path.home()
+db_folder = home_dir / "paper-flix" / "db"
+db_path = db_folder / "papers.db"
+
+# Ensure the directory exists before trying to connect
+db_folder.mkdir(parents=True, exist_ok=True)
+
+print(f"Connecting to database at: {db_path}")
+conn = sqlite3.connect(str(db_path))
+cursor = conn.cursor()
 print(f"Connecting to database at: {db_path}")
 conn = sqlite3.connect(db_path)
 cursor = conn.cursor()
@@ -64,7 +74,8 @@ for entry in root.findall("atom:entry", namespace):
     paper_id = raw_id.split("/abs/")[-1].split("v")[0]
 
     title = entry.find("atom:title", namespace).text.replace("\n", " ").strip()
-    abstract = entry.find("atom:summary", namespace).text.replace("\n", " ").strip()
+    abstract = entry.find(
+        "atom:summary", namespace).text.replace("\n", " ").strip()
 
     papers.append({"id": paper_id, "title": title, "abstract": abstract})
 
