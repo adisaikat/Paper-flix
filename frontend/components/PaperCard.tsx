@@ -40,7 +40,7 @@ export default function PaperCard({ paper, onClick }: Props) {
             onClick={() => onClick && onClick(paper)}
             className="text-xs px-3 py-1 bg-blue-600/20 text-blue-400 rounded-full font-semibold hover:bg-blue-600/40 transition-colors"
           >
-            Add to History +
+            Add to Feed +
           </button>
         </div>
       </div>

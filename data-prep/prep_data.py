@@ -38,7 +38,7 @@ cursor.execute(
 
 print("Fetching latest 200 diverse CS papers from arXiv API...")
 # url = "http://export.arxiv.org/api/query?search_query=cat:cs.AI+OR+cat:cs.SE+OR+cat:cs.LG+OR+cat:cs.CV+OR+cat:cs.CR&start=0&max_results=200&sortBy=submittedDate&sortOrder=descending"
-url = "http://export.arxiv.org/api/query?search_query=cat:cs.AI+OR+cat:cs.SE+OR+cat:cs.LG+OR+cat:cs.CV+OR+cat:cs.CR&start=200&max_results=200&sortBy=submittedDate&sortOrder=descending"
+url = "http://export.arxiv.org/api/query?search_query=cat:cs.AI+OR+cat:cs.SE+OR+cat:cs.LG+OR+cat:cs.CV+OR+cat:cs.CR&start=400&max_results=200&sortBy=submittedDate&sortOrder=descending"
 # Create a request object with a fake User-Agent
 req = urllib.request.Request(
     url,
@@ -74,8 +74,7 @@ for entry in root.findall("atom:entry", namespace):
     paper_id = raw_id.split("/abs/")[-1].split("v")[0]
 
     title = entry.find("atom:title", namespace).text.replace("\n", " ").strip()
-    abstract = entry.find(
-        "atom:summary", namespace).text.replace("\n", " ").strip()
+    abstract = entry.find("atom:summary", namespace).text.replace("\n", " ").strip()
 
     papers.append({"id": paper_id, "title": title, "abstract": abstract})
 
